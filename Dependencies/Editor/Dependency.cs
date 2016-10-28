@@ -155,6 +155,12 @@ namespace Ludiq.Dependencies
 
 		public void ReplaceNamespaces()
 		{
+			// Ignore if source or destination namespace isn't set
+			if (string.IsNullOrEmpty(sourceNamespace.Trim()) || string.IsNullOrEmpty(destinationNamespace.Trim()))
+			{
+				return;
+			}
+
 			foreach (var sourceFile in Directory.GetFiles(Application.dataPath, "*.cs", SearchOption.AllDirectories))
 			{
 				var source = File.ReadAllText(sourceFile);
