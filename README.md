@@ -2,6 +2,13 @@
 
 A simple utility to import Unity project dependencies. Given a source (ex.: a git repository), this utility will import the content of any of its subfolders to a destination in your project, rename the namespaces if need be, and preserve any file you choose to.
 
+## Installation
+
+1. Copy the `Dependencies` folder into your project.
+2. Enjoy!
+
+All assets from this utility are found in the `Assets > Create` menu.
+
 ## Dependency Parameters
 
 Parameter		| Description
@@ -19,10 +26,9 @@ Say we wanted to use [Rotorz Reorderable List](https://bitbucket.org/rotorz/reor
 
 Here's how to set it up:
 
-1. Copy the `Dependencies` folder into your project. 
-2. From the menu, choose `Assets > Create > Git Dependency`
-3. Fill in the information in the inspector (table below)
-4. Click `Import`
+1. From the menu, choose `Assets > Create > Git Dependency`
+2. Fill in the information in the inspector (table below)
+3. Click `Import`
 
 Parameter		| Description
 ------------|-------------
@@ -35,6 +41,26 @@ Repository Path	|https://bitbucket.org/rotorz/reorderable-list-editor-field-for-
 
 
 That's it! In the background, the utility will perform a git clone, strip it of all git folders and files, copy it to your chosen destination folder, then replace every `namespace` and `using` directive with from `Rotorz` to `MyProject`.
+
+## Example: Multiple dependencies
+
+If you have multiple dependencies, you can use a `Dependency Group` asset from the same menu. In its inspectors, add each dependency in other you want them to be imported, then click `Import All`.
+
+For example, if we wanted to import [Ludiq.Reflection](https://github.com/lazlo-bonin/ludiq-reflection), we would also need to import its own dependency, [Ludiq.Controls](https://github.com/lazlo-bonin/ludiq-controls). To do that in one click, the steps would be:
+
+1. Create a `Ludiq.Reflection` dependency with the parameters in the table below
+2. Create a `Ludiq.Controls` dependency with the parameters in the table below
+3. From the menu, choose `Assets > Create > Dependency Group`, and assign both dependencies in the list (the order is irrelevant)
+4. Click `Import All`.
+
+Parameter		| Ludiq.Reflection | Ludiq.Controls
+------------|-------------|----
+Source Path	|`Reflection`|`Controls`
+Destination Path	|`Dependencies/Ludiq/Reflection`|`Dependencies/Ludiq/Controls`
+Preserve Files		| (None)|(None)
+Source Namespace		|(Empty)|(Empty)
+Destination Namespace	|(Empty)|(Empty)
+Repository Path	|https://github.com/lazlo-bonin/ludiq-reflection|https://github.com/lazlo-bonin/ludiq-controls
 
 ## Example: Self-updating dependency
 
@@ -52,10 +78,6 @@ Preserve Files		| (None)
 Source Namespace		|`Ludiq.Dependencies`
 Destination Namespace	|(Empty, since we're not redistributing)
 Repository Path	|https://github.com/lazlo-bonin/ludiq-dependencies
-
-## Multiple dependencies
-
-If you have multiple dependencies, you can use a `Dependency Group` asset from the same menu. In its inspectors, add each dependency in other you want them to be imported, then click `Import All`.
 
 ## Contributing
 
